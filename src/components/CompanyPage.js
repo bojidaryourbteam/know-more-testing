@@ -3,10 +3,11 @@ import { Link } from 'react-router-dom'
 import { HospitalsContext } from '../contexts/HospitalsContext'
 
 const CompanyPage = () => {
-  const { hospitals, setHospitals } = useContext(HospitalsContext)
+  const { hospitals, deleteHospital } = useContext(HospitalsContext)
+  console.log(hospitals)
 
-  const removeUser = id => {
-    setHospitals(hospitals.filter(user => user.id !== id))
+  const removeHospital = OrganizationId => {
+    deleteHospital(OrganizationId)
   }
 
   return (
@@ -14,24 +15,24 @@ const CompanyPage = () => {
       <table>
         <thead>
           <tr>
-            <th>Hospital</th>
-            <th>Address1</th>
+            <th>Organization</th>
+            <th>Address</th>
             <th>Mobile</th>
           </tr>
         </thead>
         <tbody>
           {hospitals.map(user => (
-            <tr key={user.id}>
-              <td>{user.name}</td>
-              <td>{user.address1}</td>
-              <td>{user.mobile}</td>
-              <td className='user-add-button-possition-edit'>
-                <Link to={`/edit-company/${user.id}`}>
-                  <button className='button-classic '>Edit</button>
+            <tr key={user.OrganizationId}>
+              <td>{user.Name}</td>
+              <td>{user.Address}</td>
+              <td>{user.Phone}</td>
+              <td className='organization-add-button-possition-edit'>
+                <Link to={`/edit-company/${user.OrganizationId}`}>
+                  <button className='button-classic '>Edit Organization</button>
                 </Link>
               </td>
               <td className='user-add-button-possition-remove'>
-                <button className='button-classic' onClick={() => removeUser(user.id)}>
+                <button className='button-classic' onClick={() => removeHospital(user.OrganizationId)}>
                   Remove
                 </button>
               </td>
@@ -41,7 +42,7 @@ const CompanyPage = () => {
       </table>
       <div>
         <Link to={`/add-company`}>
-          <button className='button-general user-add-button-possition'>Add</button>
+          <button className='button-general user-add-button-possition'>Add Organization</button>
         </Link>
       </div>
     </div>
